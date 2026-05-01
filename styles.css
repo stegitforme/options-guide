@@ -398,6 +398,14 @@ a:hover { text-decoration: underline; }
 }
 .callout-info { background: var(--primary-soft); }
 
+.callout-disclaimer {
+  background: var(--bg-soft);
+  border-left-color: var(--text-soft);
+  margin-top: 16px;
+}
+.callout-disclaimer .callout-label { color: var(--text-soft); }
+.callout-disclaimer .callout-body { font-size: 13.5px; }
+
 .summary-list {
   list-style: none;
   counter-reset: item;
