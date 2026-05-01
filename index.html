@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Options Strategies — A Practical Guide for Kam</title>
+<meta name="description" content="A practical guide to options strategies for someone transitioning from futures trading.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Top Bar -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">◆</span>
+      <span class="brand-name">Options Guide</span>
+      <span class="brand-tag">for Kam</span>
+    </div>
+    <nav class="topbar-nav">
+      <a href="#start-here" class="topbar-link">Start Here</a>
+      <a href="#rankings" class="topbar-link">Rankings</a>
+      <a href="#wheel" class="topbar-link">The Wheel</a>
+      <a href="#momentum" class="topbar-link">Momentum</a>
+      <a href="#etfs" class="topbar-link">ETFs</a>
+      <a href="#gpiq" class="topbar-link">GPIQ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Getting Started</div>
+        <a href="#start-here" class="sidebar-link">Start Here</a>
+        <a href="#rankings" class="sidebar-link">Strategy Rankings</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Recommended for Beginners</div>
+        <a href="#wheel" class="sidebar-link sidebar-link-highlight">The Wheel Strategy</a>
+        <a href="#wheel-mechanics" class="sidebar-sublink">How it works</a>
+        <a href="#wheel-videos" class="sidebar-sublink">Video resources</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Advanced Strategies</div>
+        <a href="#momentum" class="sidebar-link">Momentum Options</a>
+        <a href="#momentum-steps" class="sidebar-sublink">The 3-Layer Filter</a>
+        <a href="#momentum-sizing" class="sidebar-sublink">Position Sizing</a>
+        <a href="#momentum-videos" class="sidebar-sublink">Video resources</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Beyond Options</div>
+        <a href="#etfs" class="sidebar-link">Long-Term ETFs</a>
+        <a href="#gpiq" class="sidebar-link">GPIQ Income Tool</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Reference</div>
+        <a href="#summary" class="sidebar-link">Final Recommendations</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+
+    <!-- Hero / Start Here -->
+    <section id="start-here" class="section section-hero">
+      <div class="hero-eyebrow">A practical guide</div>
+      <h1 class="hero-title">Options Strategies<br>for Someone Coming From Futures</h1>
+      <p class="hero-subtitle">Kam — you asked me what options strategies are good for making a living. This is everything I've learned, ranked honestly, with the stuff that works at the top and the stuff to avoid at the bottom.</p>
+
+      <div class="callout callout-recommend">
+        <div class="callout-label">My recommendation</div>
+        <div class="callout-title">Start with the Wheel.</div>
+        <div class="callout-body">If you only read one section of this guide, make it that one. The Wheel is the closest thing to a "job" in options — boring, profitable, and the foundation everything else builds on. <a href="#wheel" class="callout-link">Jump to the Wheel →</a></div>
+      </div>
+
+      <div class="hero-cards">
+        <a href="#rankings" class="hero-card">
+          <div class="hero-card-num">01</div>
+          <div class="hero-card-title">Strategy Rankings</div>
+          <div class="hero-card-desc">All the major options strategies ranked from best to worst for income.</div>
+        </a>
+        <a href="#wheel" class="hero-card hero-card-highlight">
+          <div class="hero-card-num">02</div>
+          <div class="hero-card-title">The Wheel <span class="hero-card-badge">Start here</span></div>
+          <div class="hero-card-desc">Sell cash-secured puts, take assignment, sell covered calls. Repeat.</div>
+        </a>
+        <a href="#momentum" class="hero-card">
+          <div class="hero-card-num">03</div>
+          <div class="hero-card-title">Momentum Options</div>
+          <div class="hero-card-desc">The deep ITM call buying system I run. Higher skill, higher reward.</div>
+        </a>
+        <a href="#etfs" class="hero-card">
+          <div class="hero-card-num">04</div>
+          <div class="hero-card-title">Long-Term ETFs</div>
+          <div class="hero-card-desc">SPMO vs VOO vs QQQ — for the part of your portfolio that isn't options.</div>
+        </a>
+        <a href="#gpiq" class="hero-card">
+          <div class="hero-card-num">05</div>
+          <div class="hero-card-title">GPIQ Income Tool</div>
+          <div class="hero-card-desc">A covered-call ETF that pays ~10% — useful in sideways markets.</div>
+        </a>
+        <a href="#summary" class="hero-card">
+          <div class="hero-card-num">06</div>
+          <div class="hero-card-title">Recommendations</div>
+          <div class="hero-card-desc">My take on the right sequence to actually approach this.</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Rankings -->
+    <section id="rankings" class="section">
+      <div class="section-eyebrow">Section 01</div>
+      <h2 class="section-title">Options Strategies Ranked</h2>
+      <p class="section-lede">Best to worst for actually making money. I've tried most of these. Here's the honest take.</p>
+
+      <div class="tabs">
+        <div class="tab-buttons">
+          <button class="tab-btn tab-btn-active" data-tab="tier1">Tier 1 — Income</button>
+          <button class="tab-btn" data-tab="tier2">Tier 2 — High Skill</button>
+          <button class="tab-btn" data-tab="tier3">Tier 3 — Specialist</button>
+          <button class="tab-btn" data-tab="tier4">Tier 4 — Avoid</button>
+        </div>
+
+        <div class="tab-panel tab-panel-active" data-tab="tier1">
+          <div class="strategy-card">
+            <div class="strategy-rank">#1</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">The Wheel <span class="strategy-tag tag-good">Best for beginners</span></h3>
+              <p class="strategy-desc">Sell cash-secured puts on stocks you actually want to own. If assigned, sell covered calls until called away. Repeat forever.</p>
+              <div class="strategy-stats">
+                <div class="stat"><div class="stat-label">Realistic Returns</div><div class="stat-value">15–25% / yr</div></div>
+                <div class="stat"><div class="stat-label">Capital Required</div><div class="stat-value">$200K+</div></div>
+                <div class="stat"><div class="stat-label">Skill Level</div><div class="stat-value">Beginner</div></div>
+                <div class="stat"><div class="stat-label">Time Required</div><div class="stat-value">Low</div></div>
+              </div>
+              <div class="strategy-note">Why it works: ~70-80% of options expire worthless. Be the seller, not the buyer.</div>
+            </div>
+          </div>
+          <div class="strategy-card">
+            <div class="strategy-rank">#2</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">Covered Calls on Long-Term Holdings</h3>
+              <p class="strategy-desc">Bolt-on to stocks you already own. Sell calls 30-45 DTE at 0.20-0.30 delta. Generates 1-2% monthly on the position.</p>
+              <div class="strategy-stats">
+                <div class="stat"><div class="stat-label">Realistic Returns</div><div class="stat-value">12–24% / yr</div></div>
+                <div class="stat"><div class="stat-label">Capital Required</div><div class="stat-value">Existing positions</div></div>
+                <div class="stat"><div class="stat-label">Skill Level</div><div class="stat-value">Beginner</div></div>
+                <div class="stat"><div class="stat-label">Time Required</div><div class="stat-value">Low</div></div>
+              </div>
+              <div class="strategy-note">Best on names you're already trimming. You will cap upside in melt-ups — that's the trade.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tab="tier2">
+          <div class="strategy-card">
+            <div class="strategy-rank">#3</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">LEAPS (Stock Replacement Strategy)</h3>
+              <p class="strategy-desc">Buy 12-24 month calls at 70-80 delta on stocks you'd own anyway. Get ~80% of the upside for ~30% of the capital.</p>
+              <div class="strategy-stats">
+                <div class="stat"><div class="stat-label">Realistic Returns</div><div class="stat-value">Highly variable</div></div>
+                <div class="stat"><div class="stat-label">Capital Per Trade</div><div class="stat-value">$3-15K</div></div>
+                <div class="stat"><div class="stat-label">Skill Level</div><div class="stat-value">Intermediate</div></div>
+                <div class="stat"><div class="stat-label">Time Required</div><div class="stat-value">Medium</div></div>
+              </div>
+              <div class="strategy-note">Time decay is minimal that far out. Entry timing matters — buy when VIX is elevated, not crushed.</div>
+            </div>
+          </div>
+          <div class="strategy-card">
+            <div class="strategy-rank">#4</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">Momentum Call Buying (Deep ITM)</h3>
+              <p class="strategy-desc">Deep ITM calls (0.80 delta), 30-60 DTE, on stocks with confirmed momentum. Half-ATR stops, structured rolls when winners run. <a href="#momentum" class="inline-link">See full breakdown →</a></p>
+              <div class="strategy-stats">
+                <div class="stat"><div class="stat-label">Realistic Returns</div><div class="stat-value">30–60% / yr</div></div>
+                <div class="stat"><div class="stat-label">Win Rate</div><div class="stat-value">~60%</div></div>
+                <div class="stat"><div class="stat-label">Skill Level</div><div class="stat-value">Advanced</div></div>
+                <div class="stat"><div class="stat-label">Time Required</div><div class="stat-value">High</div></div>
+              </div>
+              <div class="strategy-note">Without discipline this goes to zero. Treat it like a system — entry rules, exit rules, position sizing, no exceptions.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tab="tier3">
+          <div class="strategy-card">
+            <div class="strategy-rank">#5</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">Vertical Credit Spreads</h3>
+              <p class="strategy-desc">Sell a put closer to the money, buy a further-out put for protection. Defined risk, defined reward, theta on your side.</p>
+              <div class="strategy-stats">
+                <div class="stat"><div class="stat-label">Realistic Returns</div><div class="stat-value">20–30% / yr</div></div>
+                <div class="stat"><div class="stat-label">Capital Required</div><div class="stat-value">Lower than Wheel</div></div>
+                <div class="stat"><div class="stat-label">Skill Level</div><div class="stat-value">Intermediate</div></div>
+                <div class="stat"><div class="stat-label">Time Required</div><div class="stat-value">Medium</div></div>
+              </div>
+              <div class="strategy-note">"Win small often, lose big rarely" math is unforgiving when the rare loss happens. One bad month wipes out three good ones.</div>
+            </div>
+          </div>
+          <div class="strategy-card">
+            <div class="strategy-rank">#6</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">Iron Condors</h3>
+              <p class="strategy-desc">Sell a put spread + sell a call spread on the same underlying. Profit when the stock stays in a range. Best on indices.</p>
+              <div class="strategy-stats">
+                <div class="stat"><div class="stat-label">Realistic Returns</div><div class="stat-value">15–25% / yr</div></div>
+                <div class="stat"><div class="stat-label">Best Environment</div><div class="stat-value">Range-bound</div></div>
+                <div class="stat"><div class="stat-label">Skill Level</div><div class="stat-value">Intermediate</div></div>
+                <div class="stat"><div class="stat-label">Time Required</div><div class="stat-value">Medium</div></div>
+              </div>
+              <div class="strategy-note">Trend regimes are condor graveyards. You need to know when NOT to put them on.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tab="tier4">
+          <div class="strategy-card strategy-card-bad">
+            <div class="strategy-rank">#7</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">Long Strangles / Straddles <span class="strategy-tag tag-bad">Avoid</span></h3>
+              <p class="strategy-desc">Buy a call + buy a put, profit on a big move either way. Sounds great. Almost always loses.</p>
+              <div class="strategy-note">You're paying for IV. Unless realized vol exceeds implied vol (rare), you bleed daily. Specialist edge, not a living.</div>
+            </div>
+          </div>
+          <div class="strategy-card strategy-card-bad">
+            <div class="strategy-rank">#8</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">Naked Short Strangles <span class="strategy-tag tag-bad">Avoid</span></h3>
+              <p class="strategy-desc">Sell a call + sell a put, collect premium, hope nothing happens.</p>
+              <div class="strategy-note">Picking up nickels in front of a steamroller. Works 90% of the time, then one vol event wipes out three years of gains.</div>
+            </div>
+          </div>
+          <div class="strategy-card strategy-card-bad">
+            <div class="strategy-rank">#9</div>
+            <div class="strategy-body">
+              <h3 class="strategy-name">OTM Lottery Tickets <span class="strategy-tag tag-bad">Avoid</span></h3>
+              <p class="strategy-desc">0DTE, weeklies, far OTM monthlies. The Reddit favorite.</p>
+              <div class="strategy-note">90%+ go to zero. The 10% that hit get screenshotted and skew everyone's perception. Entertainment, not income.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Wheel -->
+    <section id="wheel" class="section">
+      <div class="section-eyebrow">Section 02 — Recommended Starting Point</div>
+      <h2 class="section-title">The Wheel Strategy</h2>
+      <p class="section-lede">If you traded futures, you already understand leverage and risk management. The Wheel takes that discipline and applies it to the seller side of the options market — where most professional options traders actually live.</p>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Why I'd start you here</div>
+        <div class="callout-body">The Wheel is mechanical, well-documented, and backtested to death. You'll build the muscle memory of selling premium, managing assignment, and thinking in probabilities — which carries over to every other strategy in this guide. It's also the strategy where futures traders most often blow up early because they don't respect theta. Start by being the seller, not the buyer.</div>
+      </div>
+
+      <div id="wheel-mechanics" class="subsection">
+        <h3 class="subsection-title">How It Actually Works</h3>
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4 class="step-title">Sell a Cash-Secured Put</h4>
+              <p>Pick a stock you'd genuinely want to own at a discount. Sell a put 30-45 days out, at a strike 5-10% below current price (around 0.20-0.30 delta). You collect premium upfront and have cash set aside in case you get assigned.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4 class="step-title">If the put expires worthless</h4>
+              <p>Keep the premium. Sell another put. Repeat. You're collecting income while waiting to buy the stock at your price.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4 class="step-title">If you get assigned</h4>
+              <p>You now own 100 shares per contract at the strike price. Your effective cost basis is lower because of the premium you collected. This is fine — you wanted this stock anyway.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4 class="step-title">Sell Covered Calls</h4>
+              <p>Now sell calls against your shares, 30-45 days out, at a strike above your cost basis (0.20-0.30 delta). Collect premium. If the calls expire worthless, sell more. If they get exercised, your shares get called away at a profit and you start the cycle over.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">The Numbers</h3>
+        <div class="stat-grid">
+          <div class="stat-block">
+            <div class="stat-block-label">Target DTE</div>
+            <div class="stat-block-value">30-45</div>
+            <div class="stat-block-note">days to expiration</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Target Delta</div>
+            <div class="stat-block-value">0.20-0.30</div>
+            <div class="stat-block-note">~70-80% prob of expiring worthless</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Manage At</div>
+            <div class="stat-block-value">50%</div>
+            <div class="stat-block-note">profit (close early, redeploy)</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Realistic Annual Return</div>
+            <div class="stat-block-value">15-25%</div>
+            <div class="stat-block-note">on capital, on quality names</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Stock Selection Rules</h3>
+        <ul class="rule-list">
+          <li><strong>Only stocks you'd actually want to own.</strong> If you wouldn't be happy holding 100 shares for months, don't sell a put on it.</li>
+          <li><strong>Quality over yield.</strong> A 30% IV stock paying $0.50 in premium is better than a 90% IV meme stock paying $2 — the meme stock will assign you and then keep dropping.</li>
+          <li><strong>Liquid options.</strong> Tight bid/ask spreads, 200+ open interest at your strike. Garbage liquidity = garbage fills.</li>
+          <li><strong>No earnings during your contract.</strong> Earnings are coin flips. Avoid them entirely.</li>
+          <li><strong>Diversify across 3-5 names minimum.</strong> One bad assignment shouldn't sink the whole strategy.</li>
+        </ul>
+      </div>
+
+      <div id="wheel-videos" class="subsection">
+        <h3 class="subsection-title">Video Resources I've Vetted</h3>
+        <p class="subsection-lede">These are the two videos I'd actually send you. Both clear, both honest about losses, no Discord upsell garbage.</p>
+
+        <div class="video-grid">
+          <a href="https://www.youtube.com/watch?v=siFsIleNTzk" target="_blank" rel="noopener" class="video-card">
+            <div class="video-thumb">
+              <img src="https://img.youtube.com/vi/siFsIleNTzk/maxresdefault.jpg" alt="How to Trade the Wheel Strategy">
+              <div class="video-play">▶</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-channel">InTheMoney</div>
+              <div class="video-title">How to Trade the Wheel Strategy</div>
+              <div class="video-desc">The foundational explainer. Adam walks through the mechanics with clean visuals and real trade examples.</div>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=NNjEK-8qOKo" target="_blank" rel="noopener" class="video-card">
+            <div class="video-thumb">
+              <img src="https://img.youtube.com/vi/NNjEK-8qOKo/maxresdefault.jpg" alt="The Wheel Strategy 2026 - $500K Portfolio">
+              <div class="video-play">▶</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-channel">Options With Ryan</div>
+              <div class="video-title">The Wheel Strategy 2026 — $500K Portfolio</div>
+              <div class="video-desc">Ryan Hildreth running the Wheel at scale on a real $500K account. December portfolio recap with actual trades.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Momentum Options -->
+    <section id="momentum" class="section">
+      <div class="section-eyebrow">Section 03</div>
+      <h2 class="section-title">Momentum Options Strategy</h2>
+      <p class="section-lede">This is the call-buying system I run. Higher skill, higher reward, more time-intensive. Don't start here — but worth understanding for when you're ready.</p>
+
+      <div class="callout callout-warn">
+        <div class="callout-title">A warning before you keep reading</div>
+        <div class="callout-body">This strategy works because of the system around it. The market filter, sector filter, position sizing math, and exit rules are not optional decorations — they ARE the strategy. Most people who try this lose money because they widen stops, hold losers, skip the screener, and treat it like discretionary trading. Read everything below before considering this.</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">The Big Idea</h3>
+        <p>Buy call options on stocks that are <em>already</em> going up, in markets that are <em>already</em> going up, in sectors that are <em>already</em> going up. Don't predict tops or bottoms — surf waves that have already formed.</p>
+        <p>The whole strategy boils down to one rule: <strong>only trade when the market, the sector, AND the stock are all moving the same direction at the same time.</strong> Most retail traders pick a stock they like and hope. This flips that — you only pick stocks where everything has already aligned.</p>
+      </div>
+
+      <div id="momentum-steps" class="subsection">
+        <h3 class="subsection-title">The 3-Layer Filter</h3>
+        <p class="subsection-lede">Three traffic lights. ALL three must be green before you trade. Any red light, you wait.</p>
+
+        <div class="filter-list">
+          <div class="filter-card">
+            <div class="filter-header">
+              <div class="filter-light filter-light-green"></div>
+              <div class="filter-meta">
+                <div class="filter-weight">40% of the decision</div>
+                <h4 class="filter-name">Light #1 — The Market</h4>
+              </div>
+            </div>
+            <div class="filter-body">
+              <p>Before anything else: is the broad market healthy? Specifically the S&P 500 (SPY).</p>
+              <ul>
+                <li>SPY trending up — 10-day EMA above 20-day above 50-day</li>
+                <li>SPY giving a buy signal from your indicator system</li>
+                <li>Fear &amp; Greed reading under 70 and rising (room to run, not yet euphoric)</li>
+                <li>Market breadth confirming — most stocks participating, not just mega-caps</li>
+              </ul>
+              <p class="filter-rule">If SPY is in a downtrend → STOP. Park in cash equivalents. Wait.</p>
+            </div>
+          </div>
+
+          <div class="filter-card">
+            <div class="filter-header">
+              <div class="filter-light filter-light-green"></div>
+              <div class="filter-meta">
+                <div class="filter-weight">30% of the decision</div>
+                <h4 class="filter-name">Light #2 — The Sector</h4>
+              </div>
+            </div>
+            <div class="filter-body">
+              <p>If the market checks out, look at the sector the stock is in (tech, financials, energy, etc.).</p>
+              <ul>
+                <li>Sector trending up with bullish moving-average alignment</li>
+                <li>Sector showing relative strength vs. the broader market</li>
+                <li>Sector breadth confirming — most stocks in the sector also trending up</li>
+                <li>Skip healthcare entirely — too event-driven and unpredictable for this style</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="filter-card">
+            <div class="filter-header">
+              <div class="filter-light filter-light-green"></div>
+              <div class="filter-meta">
+                <div class="filter-weight">30% of the decision</div>
+                <h4 class="filter-name">Light #3 — The Stock</h4>
+              </div>
+            </div>
+            <div class="filter-body">
+              <p>Only after market and sector are green do you look at specific stocks.</p>
+              <ul>
+                <li>Clean uptrend (10/20/50-day moving averages stacked bullishly)</li>
+                <li>Trading above its 10-day moving average — momentum is fresh</li>
+                <li>Price over $10 (cheaper stocks have garbage option pricing)</li>
+                <li>No earnings report in the next 4+ days</li>
+                <li>Stock isn't overextended — give it room to keep running, don't chase parabolic</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="momentum-sizing" class="subsection">
+        <h3 class="subsection-title">Position Sizing — The Part Most People Skip</h3>
+        <p>This is why most traders blow up. You don't buy "however many contracts feel right." You calculate it.</p>
+
+        <div class="formula-box">
+          <div class="formula-label">The formula</div>
+          <div class="formula">(Account Balance × Risk %) ÷ (2 × ATR) = # of shares</div>
+          <div class="formula">Shares ÷ Delta = # of option contracts</div>
+        </div>
+
+        <div class="formula-explainer">
+          <div class="explainer-row">
+            <div class="explainer-term">Risk %</div>
+            <div class="explainer-def">How much of your account you'll lose on this one trade. Rule of thumb: 5% maximum, often less.</div>
+          </div>
+          <div class="explainer-row">
+            <div class="explainer-term">ATR</div>
+            <div class="explainer-def">Average True Range — how much the stock typically moves per day. "2 × ATR" is your built-in stop loss distance.</div>
+          </div>
+          <div class="explainer-row">
+            <div class="explainer-term">Delta</div>
+            <div class="explainer-def">How much the option moves per $1 of stock. Target 0.80 delta — moves ~80¢ for every $1 of stock movement.</div>
+          </div>
+        </div>
+
+        <div class="formula-example">
+          <div class="example-label">Real example with a $100,000 account</div>
+          <div class="example-calc">
+            <div class="calc-row"><span class="calc-step">Risk 5%</span><span class="calc-eq">=</span><span class="calc-val">$5,000 max loss</span></div>
+            <div class="calc-row"><span class="calc-step">Stock ATR = $1.50, so 2 × ATR</span><span class="calc-eq">=</span><span class="calc-val">$3.00</span></div>
+            <div class="calc-row"><span class="calc-step">$5,000 ÷ $3.00</span><span class="calc-eq">=</span><span class="calc-val">1,666 shares-equivalent</span></div>
+            <div class="calc-row calc-row-final"><span class="calc-step">1,666 ÷ 80 (delta)</span><span class="calc-eq">=</span><span class="calc-val">~20 contracts</span></div>
+          </div>
+          <div class="example-note">That's it. You buy 20 contracts. Not 50 because you "feel good." Not 5 because you're scared. Twenty, because that's what the math says.</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Picking the Right Contract</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Criterion</th><th>Target</th><th>Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Days to expiration</td><td>30+ days</td><td>Less time decay working against you</td></tr>
+            <tr><td>Delta</td><td>0.80</td><td>Deep ITM — moves with stock, doesn't bleed</td></tr>
+            <tr><td>Open interest</td><td>200+ at strike</td><td>You can actually sell when you want</td></tr>
+            <tr><td>Bid/ask spread</td><td>Under 10% of ask</td><td>Not getting fleeced on entry/exit</td></tr>
+            <tr><td>Extrinsic value</td><td>Under 30% (ideally &lt;20%)</td><td>The "hope" portion that decays daily</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Exit Rules — Half the Game</h3>
+        <p>Set exits <strong>before</strong> entry, not while watching the trade.</p>
+
+        <div class="exit-grid">
+          <div class="exit-card exit-card-hard">
+            <div class="exit-label">Hard Exits (close immediately)</div>
+            <ul>
+              <li>Stop loss hit — stock moves 2 ATR against you</li>
+              <li>Emergency exit — 3 ATR move against you intraday</li>
+              <li>Trend breaks — 10/20 EMA bearish cross</li>
+              <li>Earnings approaching — close before any announcement</li>
+              <li>Gap &amp; Crap — stock gaps up 5%+ then closes back below the gap-up day's low</li>
+              <li>120 calendar days held — time decay starts winning</li>
+            </ul>
+          </div>
+          <div class="exit-card exit-card-roll">
+            <div class="exit-label">Rolling Winners</div>
+            <ul>
+              <li>Every +1 ATR move in your favor: ask "can I roll up and out for a credit?"</li>
+              <li>If yes — sell original, buy closer to ATM further out, pocket cash from the swap</li>
+              <li>This takes profit AND keeps you in the trade</li>
+              <li>Keep rolling until an exit signal hits</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Realistic Expectations</h3>
+        <div class="expect-grid">
+          <div class="expect-card">
+            <div class="expect-num">~6 / 10</div>
+            <div class="expect-desc">Trades will be winners</div>
+          </div>
+          <div class="expect-card">
+            <div class="expect-num">2-3</div>
+            <div class="expect-desc">Of those rolled for big gains (35%+)</div>
+          </div>
+          <div class="expect-card">
+            <div class="expect-num">Small</div>
+            <div class="expect-desc">Losses (your 2 ATR stop did its job)</div>
+          </div>
+          <div class="expect-card expect-card-warn">
+            <div class="expect-num">3 in 1 day</div>
+            <div class="expect-desc">Losers = stop trading for a week. Don't chase.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="momentum-videos" class="subsection">
+        <h3 class="subsection-title">Video Resources</h3>
+        <p class="subsection-lede">If you want to go deeper, these are the two channels that document this exact methodology.</p>
+
+        <div class="video-grid">
+          <a href="https://www.youtube.com/watch?v=6ReFNxqQP60&t=1026s" target="_blank" rel="noopener" class="video-card">
+            <div class="video-thumb">
+              <img src="https://img.youtube.com/vi/6ReFNxqQP60/maxresdefault.jpg" alt="OVTLYR Plan Training">
+              <div class="video-play">▶</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-channel">OVTLYR Training with Joe</div>
+              <div class="video-title">OVTLYR Plan Training (Full Walkthrough)</div>
+              <div class="video-desc">Timestamped sections covering exit signals, market &amp; sector status, options chain criteria, and backtesting results. The operational tutorial.</div>
+            </div>
+          </a>
+          <a href="https://youtube.com/@10minutetrading" target="_blank" rel="noopener" class="video-card">
+            <div class="video-thumb video-thumb-channel">
+              <div class="video-channel-mark">10MT</div>
+              <div class="video-play">▶</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-channel">@10MinuteTrading</div>
+              <div class="video-title">Christopher Uhl — OVTLYR Channel</div>
+              <div class="video-desc">The methodology's source. Christopher is the OVTLYR founder and a Chartered Market Analyst. Tagline: "Profits Follow Price" — the philosophical core of the strategy.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="callout callout-summary">
+        <div class="callout-title">The One-Page Summary</div>
+        <ol class="summary-list">
+          <li>Check the market — if SPY isn't healthy, stop here.</li>
+          <li>Check the sector — if the sector isn't leading, stop here.</li>
+          <li>Check the stock — clean uptrend, no earnings, room to run.</li>
+          <li>Calculate position size with the formula. Don't eyeball it.</li>
+          <li>Buy a 0.80 delta call, 30+ days out, good liquidity, low extrinsic.</li>
+          <li>Set stop at 2 ATR below entry. Emergency alert at 3 ATR.</li>
+          <li>Roll up and out for credits at every +1 ATR move in your favor.</li>
+          <li>Get out when any exit signal triggers — no debate, no hope.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ETFs -->
+    <section id="etfs" class="section">
+      <div class="section-eyebrow">Section 04 — Beyond Options</div>
+      <h2 class="section-title">Long-Term ETF Holdings</h2>
+      <p class="section-lede">Not everything has to be options. For the part of your portfolio that's "set and forget," here's how I think about it.</p>
+
+      <div class="callout callout-info">
+        <div class="callout-title">SPMO is the underrated one</div>
+        <div class="callout-body">Most people default to VOO or QQQ. But the Invesco S&P 500 Momentum ETF (SPMO) has quietly outperformed both — and with a smaller max drawdown than VOO. It's worth understanding before you decide on your long-term core.</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">The Three Options</h3>
+
+        <div class="etf-grid">
+          <div class="etf-card etf-card-spmo">
+            <div class="etf-ticker">SPMO</div>
+            <div class="etf-name">Invesco S&P 500 Momentum</div>
+            <div class="etf-tagline">The systematic winner-rider</div>
+            <div class="etf-desc">Holds the ~100 S&P 500 stocks with strongest recent price momentum. Rebalances every 6 months — drops fading names, adds new leaders. Same universe as VOO (quality screened by S&P inclusion), but only the ones actually moving up.</div>
+            <div class="etf-stats">
+              <div><span>Expense ratio</span><strong>0.13%</strong></div>
+              <div><span>Strategy</span><strong>Momentum factor</strong></div>
+            </div>
+          </div>
+
+          <div class="etf-card">
+            <div class="etf-ticker">VOO</div>
+            <div class="etf-name">Vanguard S&P 500</div>
+            <div class="etf-tagline">The classic core</div>
+            <div class="etf-desc">Plain-vanilla S&P 500. The benchmark. Steady, diversified, boringly reliable. The default answer that's never wrong.</div>
+            <div class="etf-stats">
+              <div><span>Expense ratio</span><strong>0.03%</strong></div>
+              <div><span>Strategy</span><strong>Market cap weighted</strong></div>
+            </div>
+          </div>
+
+          <div class="etf-card">
+            <div class="etf-ticker">QQQ</div>
+            <div class="etf-name">Invesco Nasdaq-100</div>
+            <div class="etf-tagline">The growth tilt</div>
+            <div class="etf-desc">Nasdaq-100, tech-heavy growth. Higher risk, higher reward than the S&P. The aggressive cousin that wins big in tech-led markets and gives back hard in rotations.</div>
+            <div class="etf-stats">
+              <div><span>Expense ratio</span><strong>0.20%</strong></div>
+              <div><span>Strategy</span><strong>Tech-heavy index</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Performance Comparison (Early 2022 → May 2026)</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>ETF</th><th>Total Return</th><th>Max Drawdown</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr class="row-highlight">
+              <td><strong>SPMO</strong></td>
+              <td><strong>+156.8%</strong></td>
+              <td>-23.7%</td>
+              <td>Best return AND smaller drawdown than VOO</td>
+            </tr>
+            <tr>
+              <td>QQQ</td>
+              <td>+106.2%</td>
+              <td>-35.3%</td>
+              <td>Solid but the biggest drops</td>
+            </tr>
+            <tr>
+              <td>VOO</td>
+              <td>+85.8%</td>
+              <td>-25.4%</td>
+              <td>Classic S&P, the benchmark</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">SPMO didn't just outperform — it did so with a <em>smaller</em> max drawdown than VOO. The conventional wisdom that "momentum is riskier" doesn't match the data here. The S&P quality filter plus the momentum screen actually protects on the way down.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">The Honest Caveats</h3>
+        <div class="caveat-list">
+          <div class="caveat">
+            <div class="caveat-num">1</div>
+            <div class="caveat-body"><strong>The starting point matters.</strong> The 156% number partly reflects momentum catching the AI rotation perfectly. Start the chart in 2019 or 2020, the outperformance is real but smaller. Don't let one chart drive a decision.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">2</div>
+            <div class="caveat-body"><strong>Momentum's known weakness: sharp regime changes.</strong> When leadership flips fast (March 2020 reopening, late-2020 value rotation), momentum ETFs get caught holding yesterday's winners. The 6-month rebalance isn't fast enough. Tolerable if you're long-term, painful if you panic.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">3</div>
+            <div class="caveat-body"><strong>More concentrated than VOO.</strong> ~100 stocks vs. 500. More single-stock risk. More tech-heavy when tech is leading.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">How I'd Actually Use It</h3>
+        <p>The cleanest play isn't <em>replacing</em> VOO or QQQ — it's <em>blending</em>. A reasonable long-term mix:</p>
+        <div class="allocation-bar">
+          <div class="alloc alloc-voo" style="flex:50">
+            <div class="alloc-ticker">VOO</div>
+            <div class="alloc-pct">50%</div>
+          </div>
+          <div class="alloc alloc-qqq" style="flex:25">
+            <div class="alloc-ticker">QQQ</div>
+            <div class="alloc-pct">25%</div>
+          </div>
+          <div class="alloc alloc-spmo" style="flex:25">
+            <div class="alloc-ticker">SPMO</div>
+            <div class="alloc-pct">25%</div>
+          </div>
+        </div>
+        <p class="alloc-note">Diversified core (VOO), growth tilt (QQQ), systematic ride-the-winners overlay (SPMO). Total blended cost: ~0.10%. You can adjust the ratios based on conviction, but the principle holds — SPMO deserves a seat at the table, not just a comparison line on a chart.</p>
+      </div>
+    </section>
+
+    <!-- GPIQ -->
+    <section id="gpiq" class="section">
+      <div class="section-eyebrow">Section 05 — Income Tool</div>
+      <h2 class="section-title">GPIQ for Sideways Markets</h2>
+      <p class="section-lede">A tool, not a core holding. The Goldman Sachs Nasdaq-100 Premium Income ETF runs a covered call strategy on the Nasdaq-100 and pays roughly 10% in monthly income. Useful when the market goes flat.</p>
+
+      <div class="subsection">
+        <h3 class="subsection-title">In One Sentence</h3>
+        <p>GPIQ owns the Nasdaq-100 (basically QQQ) and systematically sells covered calls against it to generate monthly income. Same idea as JEPQ from JPMorgan, but Goldman's version — and it's been quietly outperforming JEPQ since launch.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">The Numbers (late April 2026)</h3>
+        <div class="stat-grid">
+          <div class="stat-block">
+            <div class="stat-block-label">Price</div>
+            <div class="stat-block-value">~$55</div>
+            <div class="stat-block-note">trading near 52-week high</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Dividend Yield</div>
+            <div class="stat-block-value">~10%</div>
+            <div class="stat-block-note">paid monthly</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Expense Ratio</div>
+            <div class="stat-block-value">0.35%</div>
+            <div class="stat-block-note">reasonable for active overlay</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">1-Year Total Return</div>
+            <div class="stat-block-value">~37%</div>
+            <div class="stat-block-note">price + distributions</div>
+          </div>
+        </div>
+        <p class="table-note">~$5.33 paid out per share in the last 12 months in monthly chunks of ~$0.43. Not a small income stream.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">How It Works</h3>
+        <p>Think of it as Goldman running the Wheel for you on the Nasdaq-100:</p>
+        <div class="step-list step-list-compact">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><p><strong>Owns Nasdaq-100 stocks</strong> — same exposure as QQQ (NVDA, AAPL, MSFT, AVGO, GOOG, etc.)</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><p><strong>Sells call options</strong> against a portion of the portfolio (typically 25-75% — manager has discretion based on market conditions)</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><p><strong>Collects premium</strong> from those calls every month</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><p><strong>Distributes the premium</strong> to shareholders as monthly income</p></div></div>
+        </div>
+        <p>The active overlay is the key differentiator from older covered call ETFs like QYLD (which sells 100% of the portfolio at-the-money every month and bleeds NAV over time). GPIQ's manager flexes coverage based on market view, which has helped NAV actually keep pace.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Why It's Useful in Sideways Markets</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Market Environment</th><th>GPIQ vs QQQ</th><th>Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Roaring bull</td><td>QQQ wins</td><td>Calls cap your upside</td></tr>
+            <tr class="row-highlight"><td><strong>Sideways / choppy</strong></td><td><strong>GPIQ wins</strong></td><td>Nasdaq goes nowhere, you collect ~10% in premium income</td></tr>
+            <tr><td>Moderate bear</td><td>GPIQ outperforms</td><td>Premium income cushions losses</td></tr>
+            <tr><td>Sharp bear</td><td>Both lose, GPIQ less</td><td>Income buffer helps but doesn't eliminate equity risk</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">The "best" market for GPIQ is one that grinds sideways or churns up and down — exactly when buy-and-hold investors get bored.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">The NAV Question</h3>
+        <p>The classic knock on covered call ETFs: "they pay you back your own money — NAV erodes over time." That's mostly true for QYLD. It's <strong>not</strong> really true for GPIQ.</p>
+        <p>Since launching in October 2023, GPIQ's NAV has actually appreciated alongside paying ~10% annual distributions. The stock went from inception around $44 to $55 today, while paying out $5+ per year. Total return of ~37% over the past year — better than the S&P 500 and competitive with QQQ.</p>
+        <p>The reason: Goldman's manager doesn't sell calls on 100% of the portfolio, doesn't always sell at-the-money, and adjusts strikes based on conditions. So when underlying tech stocks rip, GPIQ captures <em>some</em> upside. Won't ever match QQQ in a screaming bull market — but it's not designed to.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Where It Fits</h3>
+        <ul class="rule-list">
+          <li><strong>Monthly income without selling principal</strong> — retirees, distribution accounts, anyone wanting to live off cash flow</li>
+          <li><strong>Sideways market thesis</strong> — income compounds while QQQ goes nowhere</li>
+          <li><strong>Reduced-volatility Nasdaq exposure</strong> — call premiums smooth out the ride</li>
+          <li><strong>Better than cash</strong> — beats treasury yields with some equity participation</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Honest Tradeoffs</h3>
+        <ul class="rule-list rule-list-warn">
+          <li><strong>Will underperform QQQ in strong bull markets.</strong> Period. Price of the income.</li>
+          <li><strong>Yield includes return of capital sometimes.</strong> Check the 19a notices. Doesn't matter for total return, matters for tax planning.</li>
+          <li><strong>Still equity risk.</strong> If Nasdaq drops 30%, GPIQ drops too (just less than QQQ). Not a bond substitute.</li>
+          <li><strong>Short track record.</strong> Inception Oct 2023. Hasn't been tested through a real bear market yet.</li>
+        </ul>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Bottom Line</div>
+        <div class="callout-body">GPIQ won't win the long-term return race against QQQ in a bull market. It's not supposed to. But for a sleeve designed around income and reduced volatility — especially in markets that aren't obviously trending — it's one of the better-designed products in this category. Worth keeping on the shelf as a tool, not a core position.</div>
+      </div>
+    </section>
+
+    <!-- Final Recommendations -->
+    <section id="summary" class="section">
+      <div class="section-eyebrow">Section 06</div>
+      <h2 class="section-title">My Recommendations for You</h2>
+      <p class="section-lede">If I were sitting next to you walking through how to actually approach this, here's the order I'd suggest.</p>
+
+      <div class="rec-list">
+        <div class="rec-card">
+          <div class="rec-num">1</div>
+          <div class="rec-content">
+            <h3 class="rec-title">Start with the Wheel on 3-5 quality names</h3>
+            <p>Boring, profitable, builds the muscle memory of selling premium. This is where 90% of professional options income actually comes from. Don't skip this stage thinking you're too advanced for it. <a href="#wheel" class="inline-link">Wheel section →</a></p>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-num">2</div>
+          <div class="rec-content">
+            <h3 class="rec-title">Layer in covered calls on long-term holdings</h3>
+            <p>If you've got positions you'd hold through anything, sell calls against them at strikes you'd be happy taking. Found money on stocks you already own.</p>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-num">3</div>
+          <div class="rec-content">
+            <h3 class="rec-title">Add credit spreads when the Wheel is running smoothly</h3>
+            <p>Same skill set as selling puts, but capital-efficient. Defined risk, defined reward, theta on your side. Don't try this until the Wheel feels mechanical.</p>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-num">4</div>
+          <div class="rec-content">
+            <h3 class="rec-title">Only then consider momentum calls or LEAPS</h3>
+            <p>And only if you're willing to follow a written system with hard stops and no exceptions. <a href="#momentum" class="inline-link">Momentum section →</a></p>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-num">5</div>
+          <div class="rec-content">
+            <h3 class="rec-title">Use SPMO/VOO/QQQ for the "set it and forget it" sleeve</h3>
+            <p>Not everything has to be options. A diversified ETF base lets the options strategies be the income generator on top, not the entire portfolio. <a href="#etfs" class="inline-link">ETF section →</a></p>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-num">6</div>
+          <div class="rec-content">
+            <h3 class="rec-title">Keep GPIQ on the shelf for choppy markets</h3>
+            <p>When nothing is trending and the Wheel is grinding, GPIQ does the same thing in ETF form with monthly distributions. Useful tool. <a href="#gpiq" class="inline-link">GPIQ section →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-final">
+        <div class="callout-title">The single biggest mistake futures traders make in options</div>
+        <div class="callout-body">Treating long calls and puts like a futures contract. Theta is brutal and IV crush after events is real — your futures intuition will burn you fast on the buy side. The premium-selling side is where most professional options traders actually live, and it's where I'd stake your career if you're going to do this for a living. Be the seller. Be patient. Let the math work.</div>
+      </div>
+
+      <div class="signoff">
+        <p>That's everything. Hit me up with questions any time.</p>
+        <p class="signoff-name">— Steve</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-disclaimer">This guide reflects personal opinions and experience. Not financial advice. Options trading involves substantial risk and is not suitable for everyone. Past performance does not indicate future results.</div>
+        <div class="footer-meta">Built for Kam · May 2026</div>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
