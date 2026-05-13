@@ -869,7 +869,6 @@
             <div class="signal-detail"><span>Vol Guard</span><strong class="status-warn">Watch</strong></div>
           </div>
         </div>
-        <p class="table-note">Live signal updates here: <a href="https://stegitforme.github.io/tqqq-vol-target" target="_blank" rel="noopener">stegitforme.github.io/tqqq-vol-target</a></p>
       </div>
 
       <div id="tqqq-rules" class="subsection">
@@ -1109,7 +1108,7 @@
         <h4 class="impl-subheading">Step-by-Step</h4>
         <ol class="impl-list">
           <li><strong>Set a Friday reminder</strong> — calendar alert for ~30 minutes before market close (3:30 PM ET).</li>
-          <li><strong>Check the signal</strong> — go to <a href="https://stegitforme.github.io/tqqq-vol-target" target="_blank" rel="noopener">stegitforme.github.io/tqqq-vol-target</a> or run the rules yourself: pull QQQ's close, 200MA, and 20D realized vol from any charting platform.</li>
+          <li><strong>Pull the data</strong> — grab QQQ's close, 200-day moving average, and 20-day realized volatility from any charting platform (TradingView, ThinkorSwim, etc.).</li>
           <li><strong>Calculate the target allocation</strong> using the 4-step rules above.</li>
           <li><strong>Rebalance</strong> in your brokerage: buy/sell TQQQ and SGOV to match the target percentages of your account.</li>
           <li><strong>Done</strong> — wait until next Friday and repeat.</li>
@@ -1122,36 +1121,6 @@
           <li><strong>Multi-account scaling:</strong> The signal is the same regardless of account size — just apply the target percentages to each account's value.</li>
           <li><strong>Position sizing:</strong> Whatever account balance you're running, apply the target percentages to that full balance. Don't half-size it "just in case" — that defeats the math.</li>
         </ul>
-      </div>
-
-      <div class="subsection">
-        <h3 class="subsection-title">Resources I Built for This</h3>
-        <div class="resource-grid">
-          <a href="https://stegitforme.github.io/tqqq-vol-target" target="_blank" rel="noopener" class="resource-card">
-            <div class="resource-icon">📡</div>
-            <div class="resource-meta">
-              <div class="resource-title">Live Signal Site</div>
-              <div class="resource-url">stegitforme.github.io/tqqq-vol-target</div>
-              <div class="resource-desc">Updates every Friday with the current target allocation. Bookmark this.</div>
-            </div>
-          </a>
-          <a href="https://stegitforme.github.io/gt-platform" target="_blank" rel="noopener" class="resource-card">
-            <div class="resource-icon">📊</div>
-            <div class="resource-meta">
-              <div class="resource-title">Backtest UI</div>
-              <div class="resource-url">stegitforme.github.io/gt-platform</div>
-              <div class="resource-desc">Full backtesting platform → TQQQ Vol tab → run different time ranges and see the historical signal.</div>
-            </div>
-          </a>
-          <a href="https://github.com/stegitforme/tqqq-vol-target" target="_blank" rel="noopener" class="resource-card">
-            <div class="resource-icon">💻</div>
-            <div class="resource-meta">
-              <div class="resource-title">Strategy Code</div>
-              <div class="resource-url">github.com/stegitforme/tqqq-vol-target</div>
-              <div class="resource-desc">Open-source repo with the full rule logic in Python. Fork it, extend it, paper-trade it.</div>
-            </div>
-          </a>
-        </div>
       </div>
 
       <div class="callout callout-summary">
