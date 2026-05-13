@@ -28,6 +28,7 @@
       <a href="#etfs" class="topbar-link">ETFs</a>
       <a href="#gpiq" class="topbar-link">GPIQ</a>
       <a href="#tqqq-vol" class="topbar-link">TQQQ Vol</a>
+      <a href="#ff-comparison" class="topbar-link">FF Review</a>
     </nav>
   </div>
 </header>
@@ -63,6 +64,10 @@
         <a href="#tqqq-rules" class="sidebar-sublink">The Rules</a>
         <a href="#tqqq-backtest" class="sidebar-sublink">5-Year Backtest</a>
         <a href="#tqqq-implement" class="sidebar-sublink">How to Implement</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Strategy Review</div>
+        <a href="#ff-comparison" class="sidebar-link">Forward Factor (FF)</a>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Reference</div>
@@ -122,8 +127,13 @@
           <div class="hero-card-title">TQQQ Vol-Target</div>
           <div class="hero-card-desc">A rules-based leveraged ETF system I built. Beats TQQQ buy-and-hold with way less drawdown.</div>
         </a>
-        <a href="#summary" class="hero-card">
+        <a href="#ff-comparison" class="hero-card">
           <div class="hero-card-num">07</div>
+          <div class="hero-card-title">Forward Factor Review</div>
+          <div class="hero-card-desc">The strategy you sent me. Honest writeup of why I couldn't replicate the claimed returns.</div>
+        </a>
+        <a href="#summary" class="hero-card">
+          <div class="hero-card-num">08</div>
           <div class="hero-card-title">How I Think About It</div>
           <div class="hero-card-desc">A summary of how I approach all of this — take what's useful.</div>
         </a>
@@ -1129,9 +1139,148 @@
       </div>
     </section>
 
+    <!-- FF Comparison -->
+    <section id="ff-comparison" class="section">
+      <div class="section-eyebrow">Section 07 — Strategy You Sent Me</div>
+      <h2 class="section-title">On the Forward Factor Strategy</h2>
+      <p class="section-lede">You sent me the FF (Forward Factor) calendar spread strategy video and asked what I thought. I spent serious time on it — downloaded 180GB of historical options data, ran my own backtests with multiple variations, and couldn't get anywhere near the advertised returns. Here's the honest writeup of what I found.</p>
+
+      <div class="callout callout-disclaimer">
+        <div class="callout-label">Important caveat first</div>
+        <div class="callout-body">My backtests could be wrong. I'm one guy running this with retail tools — he may have edge or data I don't. I'm not claiming the strategy is fake or that he's lying. I'm saying I tried hard to replicate it and couldn't, and the reasons I couldn't are worth understanding before you put real money behind it.</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Head-to-Head: My Backtest vs His Claims</h3>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Metric</th><th>FF Strategy (his claim)</th><th>FF Strategy (my backtest)</th><th>My TQQQ Vol-Target</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>CAGR</strong></td><td>+27%</td><td>+1.83%</td><td>+31.2%</td></tr>
+            <tr><td><strong>Max Drawdown</strong></td><td>Not fully disclosed</td><td>-18% (my data)</td><td>-27.9%</td></tr>
+            <tr><td><strong>Sharpe Ratio</strong></td><td>Implied high</td><td>~0.15</td><td>0.90</td></tr>
+            <tr><td><strong>Trade frequency</strong></td><td>~20 trades/month</td><td>~20 trades/month</td><td>Weekly rebalance only</td></tr>
+            <tr><td><strong>Complexity</strong></td><td>Calendar spreads, multi-leg</td><td>Same</td><td>2 ETFs (TQQQ, SGOV)</td></tr>
+            <tr class="row-highlight"><td><strong>Reproducible?</strong></td><td>—</td><td>No — couldn't replicate</td><td>Yes — code is open</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">The 25-point gap between his +27% headline and my +1.83% result isn't noise. It breaks down into specific, identifiable causes — most of which weigh more on his number than mine.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Why the Gap is So Large — The Five Causes</h3>
+        <p class="subsection-lede">I went through this carefully. Here's where the 25 percentage points went, in order of magnitude.</p>
+
+        <div class="caveat-list">
+          <div class="caveat">
+            <div class="caveat-num">1</div>
+            <div class="caveat-body"><strong>Data quality — the biggest factor (~15-20 points of the gap).</strong> Backtests built on close-price option data (Polygon, similar vendors) silently include phantom trades that are mathematically untradable. When a strike is thin and barely trades, the daily "close" gets stamped as the last trade of the day — even if that trade was at 9:32 AM and the market moved 4% after. The Forward Factor calculator sees that stale price as a screaming setup, "enters" at the phantom price, and exits at the real price the next month. Generates fake +90,000% returns on single trades. I caught one trade where Polygon recorded a $0.03 entry on an ATM call actually trading at $8.94. That single phantom trade was 22% of total strategy P&L. When I re-ran on clean bid/ask data (ORATS), it vanished.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">2</div>
+            <div class="caveat-body"><strong>Selection bias in published results (~3-5 points).</strong> His +27% headline is from the best-performing configuration out of 6 cells he tested (30-60 / 30-90 / 60-90 DTE × ATM Call / 35-delta Double Calendar). Any time a researcher publishes "the result" from a 6-cell grid, you should mentally discount by 2-4 percentage points for selection. I tested an ensemble across configurations — fair comparison, not cherry-picked winner.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">3</div>
+            <div class="caveat-body"><strong>Per-cell threshold tuning he doesn't fully disclose (~2-4 points).</strong> His "Filtered ~20 Trades/Month" model normalizes each cell's trade count by tuning the FF threshold per cell — different cutoff for 30-60 vs 60-90 DTE. That's threshold optimization on the same dataset he reports results from. Equivalent to in-sample fitting presented as out-of-sample performance. I used the single uniform threshold he names publicly — a more honest test.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">4</div>
+            <div class="caveat-body"><strong>Execution cost assumptions (~2-4 points).</strong> Calendar spreads have notoriously wide bid-ask spreads, especially on the back leg of single names. If his backtester fills at mid-price (or worse, at the recorded close), real-world slippage on multi-leg orders eats 10-30% of theoretical edge before it reaches an account. His exact assumptions aren't disclosed but are likely more optimistic than my 5% slippage + $0.65/contract.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">5</div>
+            <div class="caveat-body"><strong>Single-name signal I structurally couldn't test (~2-5 points, uncertain).</strong> This one's the honest weakness in my test, not necessarily a flaw in his claim. At 60/90 DTE the earnings cycle approximately equals the back-leg expiry, so my earnings filter blocked 97-100% of single-name trading days. That effectively forced me into ETF-heavy territory. If his real edge lives specifically in single-name vol term-structure mispricings driven by earnings IV spikes — and there's a coherent reason it could — then he's catching trades I never saw. Fixing this requires building an earnings vol decomposition (estimate the earnings vol contribution, subtract it from front IV before computing FF). That's a 6-10 hour build I didn't do.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Where I Think the Real Number Lives</h3>
+        <p>If I had to weight a $100 gap from his +27% down to my +1.83%:</p>
+
+        <div class="stat-grid">
+          <div class="stat-block">
+            <div class="stat-block-label">Data noise (his number is inflated)</div>
+            <div class="stat-block-value">$60-80</div>
+            <div class="stat-block-note">Real number on clean data probably +5 to +12% CAGR</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Cell/threshold selection + optimistic costs</div>
+            <div class="stat-block-value">$10-15</div>
+            <div class="stat-block-note">In-sample fitting + favorable execution assumptions</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Single-name signal I couldn't capture</div>
+            <div class="stat-block-value">$5-15</div>
+            <div class="stat-block-note">Honest weakness in my test, not his claim</div>
+          </div>
+        </div>
+
+        <p>So even if I'd built the single-name extension and his methodology were fully reproducible on clean data, the realistic ceiling for FF is probably <strong>+5 to +12% CAGR</strong> — below the +15% bar I'd want, and well below the +27% he advertises. The strategy may be real but modest. The published claim isn't.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Beyond the Numbers — Systematization Concerns</h3>
+        <p class="subsection-lede">Even if the returns were real, the strategy has structural issues that bother me as someone who wants rules-based, automated systems.</p>
+
+        <div class="rule-explainer">
+          <div class="rule-row">
+            <div class="rule-label">Earnings handling</div>
+            <div class="rule-body">Calendar spreads near earnings are very different from calendar spreads not near earnings — earnings spike near-term IV relative to far-term IV, which is exactly the signal the strategy is supposed to detect. But that earnings-driven spike isn't a tradable inefficiency, it's the market correctly pricing event risk. Without a proper earnings filter or earnings vol decomposition, you can't separate real term-structure edges from "the stock has earnings next week." His video doesn't fully explain how he handles this.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">Threshold optimization</div>
+            <div class="rule-body">His "20 trades/month" framing implies the threshold is tuned to produce a target trade count — different cells get different thresholds. That's optimization disguised as a rule. A genuinely systematic strategy uses one threshold across all configurations and lives with whatever trade count emerges.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">Position sizing</div>
+            <div class="rule-body">Kelly-sized positions on calendar spreads with thin liquidity in the back leg are a recipe for getting filled badly. The position sizing math assumes you can transact at theoretical prices. In reality, large orders move the spread, especially on single names. Live trading would generate market impact the backtest doesn't account for.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">Multi-leg execution</div>
+            <div class="rule-body">Calendar spreads are 2-leg trades. Double calendars are 4-leg. Each leg adds bid/ask slippage, and you often can't get filled on the spread combo at mid — you have to leg in, which exposes you to execution risk between legs. None of this shows up in a backtest filling at theoretical prices.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">Transparency</div>
+            <div class="rule-body">My TQQQ system has the rules published, the code open, and a Friday-rebalance cadence anyone can verify. The FF strategy's exact entry/exit rules, threshold per cell, and execution assumptions aren't fully documented. That doesn't make it wrong — but it does make it impossible to fully audit.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">What I'd Still Acknowledge</h3>
+        <div class="rule-explainer">
+          <div class="rule-row">
+            <div class="rule-label">Core idea is sound</div>
+            <div class="rule-body">IV term structure is a real phenomenon. When near-term IV trades unusually high relative to far-term IV, calendars can profit from the convergence. This isn't a fake edge — it exists in the market.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">Risk-defined trades</div>
+            <div class="rule-body">Calendar spreads are debit trades with capped loss (max loss = debit paid). Unlike naked options, you can't blow up an account on a single trade. That's a structural plus.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">Theta works in your favor</div>
+            <div class="rule-body">Long calendars are positive theta — you collect time decay on the short front leg faster than you pay it on the long back leg. The strategy isn't fighting time decay.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">Diversification</div>
+            <div class="rule-body">If you're already running directional strategies (Wheel, momentum calls, TQQQ), a vol term-structure strategy is a different return stream. Low correlation to directional bets. That has portfolio value even at modest expected returns.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-final">
+        <div class="callout-title">My honest take</div>
+        <div class="callout-body">The FF strategy isn't a scam, but the published returns aren't credible on independently replicated data. I downloaded 180GB of options data and ran multiple variations — couldn't get above +3% CAGR on clean bid/ask quotes. The +27% claim almost certainly contains a mix of phantom trade artifacts from close-price data, cell selection bias, and per-cell threshold tuning. Add real-world execution costs and the picture gets worse, not better. If you want to trade vol term structure, the core idea is legitimate — but go in expecting +5-10% CAGR with a lot of complexity, not +27% systematically. That's a much harder pitch than the video makes it sound. For my money, the Wheel and the TQQQ system give better risk-adjusted returns with way less moving parts.</div>
+      </div>
+    </section>
+
     <!-- Final Summary -->
     <section id="summary" class="section">
-      <div class="section-eyebrow">Section 07</div>
+      <div class="section-eyebrow">Section 08</div>
       <h2 class="section-title">How I Think About It</h2>
       <p class="section-lede">Here's the order I'd describe my own approach if you were sitting next to me. Take what's useful, leave what isn't.</p>
 
