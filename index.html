@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Options Strategies — A Practical Guide for Kam</title>
-<meta name="description" content="A practical guide to options strategies for someone transitioning from futures trading.">
+<title>Investment Playbook — For Kam</title>
+<meta name="description" content="A practical guide to investment strategies — options, ETFs, and systematic approaches.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
   <div class="topbar-inner">
     <div class="brand">
       <span class="brand-mark">◆</span>
-      <span class="brand-name">Options Guide</span>
+      <span class="brand-name">Investment Playbook</span>
       <span class="brand-tag">for Kam</span>
     </div>
     <nav class="topbar-nav">
@@ -27,6 +27,7 @@
       <a href="#momentum" class="topbar-link">Momentum</a>
       <a href="#etfs" class="topbar-link">ETFs</a>
       <a href="#gpiq" class="topbar-link">GPIQ</a>
+      <a href="#tqqq-vol" class="topbar-link">TQQQ Vol</a>
     </nav>
   </div>
 </header>
@@ -58,6 +59,10 @@
         <div class="sidebar-label">Beyond Options</div>
         <a href="#etfs" class="sidebar-link">Long-Term ETFs</a>
         <a href="#gpiq" class="sidebar-link">GPIQ Income Tool</a>
+        <a href="#tqqq-vol" class="sidebar-link">TQQQ Vol-Target System</a>
+        <a href="#tqqq-rules" class="sidebar-sublink">The Rules</a>
+        <a href="#tqqq-backtest" class="sidebar-sublink">5-Year Backtest</a>
+        <a href="#tqqq-implement" class="sidebar-sublink">How to Implement</a>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Reference</div>
@@ -112,8 +117,13 @@
           <div class="hero-card-title">GPIQ Income Tool</div>
           <div class="hero-card-desc">A covered-call ETF that pays ~10% — useful in sideways markets.</div>
         </a>
-        <a href="#summary" class="hero-card">
+        <a href="#tqqq-vol" class="hero-card">
           <div class="hero-card-num">06</div>
+          <div class="hero-card-title">TQQQ Vol-Target</div>
+          <div class="hero-card-desc">A rules-based leveraged ETF system I built. Beats TQQQ buy-and-hold with way less drawdown.</div>
+        </a>
+        <a href="#summary" class="hero-card">
+          <div class="hero-card-num">07</div>
           <div class="hero-card-title">How I Think About It</div>
           <div class="hero-card-desc">A summary of how I approach all of this — take what's useful.</div>
         </a>
@@ -818,9 +828,341 @@
       </div>
     </section>
 
+    <!-- TQQQ Vol-Target -->
+    <section id="tqqq-vol" class="section">
+      <div class="section-eyebrow">Section 06 — Systematic Strategy</div>
+      <h2 class="section-title">TQQQ Vol-Target System</h2>
+      <p class="section-lede">This isn't options — it's a rules-based weekly ETF rotation I built. The goal: capture most of TQQQ's upside while sidestepping its catastrophic drawdowns. It's beaten TQQQ buy-and-hold over 5 years with about a third of the maximum drawdown.</p>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Why I built this</div>
+        <div class="callout-body">TQQQ (3x leveraged Nasdaq-100) has incredible upside in bull markets — and absolutely destroys you in bear markets. Buy-and-hold dropped <strong>-79.2% in 2022 alone</strong>. The math of leverage decay means a 50% drawdown requires a 100% recovery just to break even. This system uses simple rules to size your exposure based on market conditions, so you stay aggressive when conditions are favorable and go to cash when they aren't.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">The Big Idea in One Sentence</h3>
+        <p>Every Friday at market close, run a 4-step check on QQQ to decide how much TQQQ to hold for the next week. The rest goes to SGOV (short-term Treasuries) to earn ~4-5% in the cash leg. That's it.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Current Live Signal</h3>
+        <div class="signal-card">
+          <div class="signal-meta">
+            <div class="signal-date">May 8, 2026</div>
+            <div class="signal-label">Weekly Allocation</div>
+          </div>
+          <div class="signal-bars">
+            <div class="signal-bar signal-bar-tqqq" style="flex:75">
+              <div class="signal-ticker">TQQQ</div>
+              <div class="signal-pct">75%</div>
+            </div>
+            <div class="signal-bar signal-bar-sgov" style="flex:25">
+              <div class="signal-ticker">SGOV</div>
+              <div class="signal-pct">25%</div>
+            </div>
+          </div>
+          <div class="signal-details">
+            <div class="signal-detail"><span>QQQ Close</span><strong>$711.23</strong></div>
+            <div class="signal-detail"><span>200-Day MA</span><strong>$607.31</strong></div>
+            <div class="signal-detail"><span>200MA Gate</span><strong class="status-pass">PASS</strong></div>
+            <div class="signal-detail"><span>20D Realized Vol</span><strong>45.2%</strong></div>
+            <div class="signal-detail"><span>Vol Guard</span><strong class="status-warn">Watch</strong></div>
+          </div>
+        </div>
+        <p class="table-note">Live signal updates here: <a href="https://stegitforme.github.io/tqqq-vol-target" target="_blank" rel="noopener">stegitforme.github.io/tqqq-vol-target</a></p>
+      </div>
+
+      <div id="tqqq-rules" class="subsection">
+        <h3 class="subsection-title">The Rules (4 Steps, Every Friday)</h3>
+
+        <div class="step-list">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4 class="step-title">200-Day Moving Average Gate</h4>
+              <p>Is QQQ closing above its 200-day moving average? If <strong>yes</strong>, proceed to step 2. If <strong>no</strong>, go 100% SGOV (cash) and stop. This single rule is what saves you from bear-market disasters.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4 class="step-title">Volatility-Based Position Sizing</h4>
+              <p>Calculate the position size needed to hit 35% portfolio volatility: <code>raw_weight = (35% ÷ current_20d_vol) × 100</code>. Lower realized vol → bigger TQQQ position. Higher realized vol → smaller TQQQ position. Cap at 75% maximum.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4 class="step-title">Volatility Acceleration Guard</h4>
+              <p>If 20-day realized volatility exceeds 45% AND a rapid spike is detected, override and cap TQQQ at 50%. This is the backup protection against fast tape reversals that the slow-moving signals would miss.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4 class="step-title">Rebalance at Friday Close</h4>
+              <p>Execute trades to move from current allocation to target. Round to nearest 5% for clean fills. The rest goes to SGOV. Done — wait until next Friday.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Why Each Piece Matters</h3>
+
+        <div class="rule-explainer">
+          <div class="rule-row">
+            <div class="rule-label">The 200-Day MA</div>
+            <div class="rule-body">The bear-market killswitch. Single biggest contributor to outperformance vs TQQQ buy-and-hold. In 2022, this filter cut the strategy's loss to <strong>-18%</strong> while TQQQ B&H lost <strong>-79.2%</strong>.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">35% Vol Target</div>
+            <div class="rule-body">TQQQ historically runs at 50-80% realized vol. Targeting 35% means: low-vol regimes push allocation to the 75% cap, high-vol regimes naturally cut exposure. No "panic" rule needed — the math does it for you.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">The Vol Guard</div>
+            <div class="rule-body">Backup for fast tape reversals where both the 200MA and 20D vol are too slow to catch a sudden regime change. Forces a 50% cap during rapid spikes regardless of what the formula says.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">Weekly Rebalance</div>
+            <div class="rule-body">Daily rebalancing on leveraged ETFs gets eaten by spreads, slippage, and whipsaw signals. Weekly cadence smooths daily noise but stays responsive to real regime changes.</div>
+          </div>
+          <div class="rule-row">
+            <div class="rule-label">SGOV as Cash Leg</div>
+            <div class="rule-body">Short-duration Treasury ETF earning ~4-5% in the current rate environment. Better than holding cash, no duration risk, minimal credit risk, deep liquidity.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tqqq-backtest" class="subsection">
+        <h3 class="subsection-title">5-Year Backtest (2021 → May 2026)</h3>
+        <p class="subsection-lede">Live backtest from my platform. $10,000 invested at the start of 2021.</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Strategy</th>
+              <th>CAGR</th>
+              <th>Total Return</th>
+              <th>Max Drawdown</th>
+              <th>Sharpe</th>
+              <th>$10K Became</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-highlight">
+              <td><strong>Vol-Target System</strong></td>
+              <td><strong>+31.2%</strong></td>
+              <td><strong>+288.2%</strong></td>
+              <td><strong>-27.9%</strong></td>
+              <td><strong>0.90</strong></td>
+              <td><strong>$38,821</strong></td>
+            </tr>
+            <tr>
+              <td>TQQQ Buy &amp; Hold</td>
+              <td>+27.4%</td>
+              <td>+235.7%</td>
+              <td>-80.5%</td>
+              <td>0.64</td>
+              <td>$33,567</td>
+            </tr>
+            <tr>
+              <td>QQQ Buy &amp; Hold</td>
+              <td>+17.3%</td>
+              <td>+122.1%</td>
+              <td>-35.5%</td>
+              <td>0.66</td>
+              <td>$22,211</td>
+            </tr>
+            <tr>
+              <td>SPY Buy &amp; Hold</td>
+              <td>+12.5%</td>
+              <td>+80.0%</td>
+              <td>-24.8%</td>
+              <td>0.54</td>
+              <td>$17,997</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">The system beats TQQQ B&H on every metric — higher returns, dramatically smaller drawdown, better risk-adjusted returns. And it does it with a max drawdown comparable to plain SPY despite running leveraged exposure most of the time.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Year-by-Year Returns</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Vol-Target</th>
+              <th>TQQQ B&amp;H</th>
+              <th>QQQ B&amp;H</th>
+              <th>SPY B&amp;H</th>
+              <th>Guard Fires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2021</td>
+              <td>+47.0%</td>
+              <td>+84.6%</td>
+              <td>+24.6%</td>
+              <td>+15.8%</td>
+              <td>1</td>
+            </tr>
+            <tr class="row-highlight">
+              <td><strong>2022</strong></td>
+              <td><strong>-18.0%</strong></td>
+              <td><strong>-79.2%</strong></td>
+              <td>-33.1%</td>
+              <td>-19.5%</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>2023</td>
+              <td>+62.7%</td>
+              <td>+193.1%</td>
+              <td>+53.8%</td>
+              <td>+24.3%</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>2024</td>
+              <td>+44.8%</td>
+              <td>+67.0%</td>
+              <td>+27.6%</td>
+              <td>+25.2%</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>2025</td>
+              <td>+25.1%</td>
+              <td>+30.7%</td>
+              <td>+19.4%</td>
+              <td>+16.0%</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>2026 YTD</td>
+              <td>+10.0%</td>
+              <td>+37.9%</td>
+              <td>+14.0%</td>
+              <td>+6.9%</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">2022 is the headline year. TQQQ B&H lost almost 80%. The system lost 18% — comparable to plain SPY. That's the entire point of the strategy.</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">The Honest Tradeoffs</h3>
+        <div class="caveat-list">
+          <div class="caveat">
+            <div class="caveat-num">1</div>
+            <div class="caveat-body"><strong>You leave gains on the table in roaring bulls.</strong> 2021: system captured 47% vs TQQQ's 84.6%. 2023: system made 62.7% vs TQQQ's 193%. Vol targeting is insurance — and insurance has a cost.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">2</div>
+            <div class="caveat-body"><strong>You miss the first leg up off bear-market bottoms.</strong> Coming out of 2022, the strategy was in cash until QQQ broke back above the 200MA. By the time it re-engaged, much of the easy bounce was over.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">3</div>
+            <div class="caveat-body"><strong>Whipsaw risk.</strong> The 200MA can flip on/off in choppy markets, generating round-trip trades that cost spread + slippage.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">4</div>
+            <div class="caveat-body"><strong>Gap risk.</strong> Friday-close signal misses Monday gaps. If QQQ gaps down 5% on Monday, you're holding Friday's allocation until next Friday.</div>
+          </div>
+          <div class="caveat">
+            <div class="caveat-num">5</div>
+            <div class="caveat-body"><strong>Short backtest history.</strong> 5 years isn't long. The system hasn't been stress-tested through a 1987-style crash, the 2000-2002 NASDAQ collapse, or 1970s stagflation. TQQQ itself didn't exist for those events.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tqqq-implement" class="subsection">
+        <h3 class="subsection-title">How to Actually Run It</h3>
+
+        <div class="stat-grid">
+          <div class="stat-block">
+            <div class="stat-block-label">Trade Frequency</div>
+            <div class="stat-block-value">1×/week</div>
+            <div class="stat-block-note">Friday at market close</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Tickers Needed</div>
+            <div class="stat-block-value">2</div>
+            <div class="stat-block-note">TQQQ + SGOV</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Best Account Type</div>
+            <div class="stat-block-value">Roth/IRA</div>
+            <div class="stat-block-note">No short-term cap gains tax</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-block-label">Average TQQQ %</div>
+            <div class="stat-block-value">55%</div>
+            <div class="stat-block-note">Across 5-year backtest</div>
+          </div>
+        </div>
+
+        <h4 class="impl-subheading">Step-by-Step</h4>
+        <ol class="impl-list">
+          <li><strong>Set a Friday reminder</strong> — calendar alert for ~30 minutes before market close (3:30 PM ET).</li>
+          <li><strong>Check the signal</strong> — go to <a href="https://stegitforme.github.io/tqqq-vol-target" target="_blank" rel="noopener">stegitforme.github.io/tqqq-vol-target</a> or run the rules yourself: pull QQQ's close, 200MA, and 20D realized vol from any charting platform.</li>
+          <li><strong>Calculate the target allocation</strong> using the 4-step rules above.</li>
+          <li><strong>Rebalance</strong> in your brokerage: buy/sell TQQQ and SGOV to match the target percentages of your account.</li>
+          <li><strong>Done</strong> — wait until next Friday and repeat.</li>
+        </ol>
+
+        <h4 class="impl-subheading">Implementation Notes</h4>
+        <ul class="rule-list">
+          <li><strong>Tax treatment:</strong> Weekly rebalances generate short-term capital gains. The strategy is structurally better in tax-advantaged accounts (IRA, Roth IRA) where rebalancing doesn't trigger tax events.</li>
+          <li><strong>Brokerage:</strong> Any retail brokerage works. Both TQQQ and SGOV have deep liquidity and tight spreads.</li>
+          <li><strong>Multi-account scaling:</strong> The signal is the same regardless of account size — just apply the target percentages to each account's value.</li>
+          <li><strong>Position sizing:</strong> Whatever account balance you're running, apply the target percentages to that full balance. Don't half-size it "just in case" — that defeats the math.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Resources I Built for This</h3>
+        <div class="resource-grid">
+          <a href="https://stegitforme.github.io/tqqq-vol-target" target="_blank" rel="noopener" class="resource-card">
+            <div class="resource-icon">📡</div>
+            <div class="resource-meta">
+              <div class="resource-title">Live Signal Site</div>
+              <div class="resource-url">stegitforme.github.io/tqqq-vol-target</div>
+              <div class="resource-desc">Updates every Friday with the current target allocation. Bookmark this.</div>
+            </div>
+          </a>
+          <a href="https://stegitforme.github.io/gt-platform" target="_blank" rel="noopener" class="resource-card">
+            <div class="resource-icon">📊</div>
+            <div class="resource-meta">
+              <div class="resource-title">Backtest UI</div>
+              <div class="resource-url">stegitforme.github.io/gt-platform</div>
+              <div class="resource-desc">Full backtesting platform → TQQQ Vol tab → run different time ranges and see the historical signal.</div>
+            </div>
+          </a>
+          <a href="https://github.com/stegitforme/tqqq-vol-target" target="_blank" rel="noopener" class="resource-card">
+            <div class="resource-icon">💻</div>
+            <div class="resource-meta">
+              <div class="resource-title">Strategy Code</div>
+              <div class="resource-url">github.com/stegitforme/tqqq-vol-target</div>
+              <div class="resource-desc">Open-source repo with the full rule logic in Python. Fork it, extend it, paper-trade it.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="callout callout-summary">
+        <div class="callout-title">Bottom line on this one</div>
+        <div class="callout-body">If you want leveraged Nasdaq exposure but can't stomach losing 80% in a bear market — which is what TQQQ B&H actually did in 2022 — this system gives you a way to participate in the upside while having a real protection mechanism. It's not magic, it leaves money on the table in screaming bulls, and it won't catch every regime change perfectly. But over 5 years it's done what it's supposed to: more return than TQQQ B&H, drawdown comparable to plain SPY.</div>
+      </div>
+    </section>
+
     <!-- Final Summary -->
     <section id="summary" class="section">
-      <div class="section-eyebrow">Section 06</div>
+      <div class="section-eyebrow">Section 07</div>
       <h2 class="section-title">How I Think About It</h2>
       <p class="section-lede">Here's the order I'd describe my own approach if you were sitting next to me. Take what's useful, leave what isn't.</p>
 
@@ -865,6 +1207,13 @@
           <div class="rec-content">
             <h3 class="rec-title">GPIQ is on the shelf for choppy markets</h3>
             <p>When nothing is trending and the Wheel is grinding, GPIQ does the same kind of thing in ETF form with monthly distributions. A useful tool to know about. <a href="#gpiq" class="inline-link">GPIQ section →</a></p>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-num">7</div>
+          <div class="rec-content">
+            <h3 class="rec-title">TQQQ Vol-Target is my systematic leveraged sleeve</h3>
+            <p>A rules-based weekly rotation between TQQQ and SGOV that's beaten TQQQ buy-and-hold over 5 years with a fraction of the drawdown. Different from the options strategies but worth knowing about — it's how I run leveraged Nasdaq exposure without losing my shirt in a bear market. <a href="#tqqq-vol" class="inline-link">TQQQ section →</a></p>
           </div>
         </div>
       </div>
